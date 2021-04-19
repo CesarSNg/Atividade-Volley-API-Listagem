@@ -1,7 +1,9 @@
 package br.com.local.appjsonvolleyparserequest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,16 +21,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView txtResult;
+    private RecyclerView txtRec;
     private Button btnParse;
     private RequestQueue mQueue;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtResult = findViewById(R.id.txtResult);
+        txtRec = findViewById(R.id.txtRec);
         btnParse = findViewById(R.id.btnParse);
 
         mQueue = Volley.newRequestQueue(this);
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 int rating = heroe.getInt("rating");
                                 String teamaffiliation = heroe.getString("teamaffiliation");
 
-                                txtResult.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
+                                txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
