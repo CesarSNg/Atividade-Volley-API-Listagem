@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static java.lang.String.*;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView txtRec;
@@ -62,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                                 int rating = heroe.getInt("rating");
                                 String teamaffiliation = heroe.getString("teamaffiliation");
 
-                                txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
+                                txtRec.addView(format("%s - %s - %s - %s\n\n", name, realname, valueOf(rating), teamaffiliation));
+                                //txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
