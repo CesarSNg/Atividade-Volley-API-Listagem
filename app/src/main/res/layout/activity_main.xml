@@ -10,7 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtRec">
+        android:id="@+id/idRecyclerView">
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button

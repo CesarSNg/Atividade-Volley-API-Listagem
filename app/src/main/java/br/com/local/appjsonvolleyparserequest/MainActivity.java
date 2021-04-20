@@ -1,6 +1,7 @@
 package br.com.local.appjsonvolleyparserequest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -20,21 +21,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView txtRec;
     private Button btnParse;
     private RequestQueue mQueue;
 
     RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
 
+    List<ListarItens> itensList;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtRec = findViewById(R.id.txtRec);
+        recyclerView = findViewById(R.id.idRecyclerView);
+        recyclerView.hasFixedSize();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        itensList = new ArrayList<>();
+
         btnParse = findViewById(R.id.btnParse);
 
         mQueue = Volley.newRequestQueue(this);
@@ -59,14 +70,21 @@ public class MainActivity extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject heroe = jsonArray.getJSONObject(i);
 
-                                int id = heroe.getInt("id");
+                                ListarItens listarItens = new ListarItens(
+                                        "Cabeçalho " + i,
+                                        "Testando descrição"
+                                );
+
+                                itensList.add(listarItens);
+
+                                /*int id = heroe.getInt("id");
                                 String name = heroe.getString("name");
                                 String realname = heroe.getString("realname");
                                 int rating = heroe.getInt("rating");
                                 String teamaffiliation = heroe.getString("teamaffiliation");
 
                                 txtRec.addView(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
-                                //txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
+                                txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");*/
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
