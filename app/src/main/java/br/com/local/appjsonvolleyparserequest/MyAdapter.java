@@ -34,9 +34,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListarItens listarItens = listItens.get(position);
 
-        holder.txtCabecalho.setText(listarItens.getCabecalho());
-        holder.txtDescricao.setText(listarItens.getDescricao());
-
+        holder.txtCabecalho.setText(listarItens.getTitle());
+        holder.txtDescricao.setText(listarItens.getOpening_crawl());());
     }
 
     @Override

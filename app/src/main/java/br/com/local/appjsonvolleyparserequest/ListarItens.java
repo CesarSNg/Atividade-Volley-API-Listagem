@@ -1,27 +1,27 @@
 package br.com.local.appjsonvolleyparserequest;
 
 public class ListarItens {
-    private String cabecalho;
-    private String descricao;
+    private String title;
+    private String opening_crawl;
 
-    public ListarItens(String cabecalho, String descricao) {
-        this.cabecalho = cabecalho;
-        this.descricao = descricao;
+    public ListarItens(String title, String opening_crawl) {
+        this.title = title;
+        this.opening_crawl = opening_crawl;
     }
 
-    public String getCabecalho() {
-        return cabecalho;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCabecalho(String cabecalho) {
-        this.cabecalho = cabecalho;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getOpening_crawl() {
+        return opening_crawl;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setOpening_crawl(String opening_crawl) {
+        this.opening_crawl = opening_crawl;
     }
 }
