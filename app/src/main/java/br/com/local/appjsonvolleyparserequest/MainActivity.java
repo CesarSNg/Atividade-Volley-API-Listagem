@@ -8,7 +8,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,16 +30,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    //private RecyclerView txtRec;
+    private TextView txtRec;
     private Button btnParse;
     private RequestQueue mQueue;
 
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    //RecyclerView recyclerView;
+    //RecyclerView.Adapter adapter;
 
-    List<ListarItens> itensList;
+    //List<ListarItens> itensList;
 
-    String url = "https://swapi.dev/api/films/";
+    //String url = "https://swapi.dev/api/films/";
 
 
     @Override
@@ -45,14 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.idRecyclerView);
+        /*recyclerView = findViewById(R.id.idRecyclerView);
         recyclerView.hasFixedSize();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         itensList = new ArrayList<>();
-
-        carregaDadosRecyclerView();
+        carregaDadosRecyclerView();*/
 
         btnParse = findViewById(R.id.btnParse);
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void carregaDadosRecyclerView() {
+    /*private void carregaDadosRecyclerView() {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Carregando Dados...");
         progressDialog.show();
@@ -109,9 +109,18 @@ public class MainActivity extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
+    }*/
 
     private void jsonParse() {
+        ListView list = (ListView) findViewById(R.id.txtRec);
+        ArrayList<String> listItems=new ArrayList<String>();
+
+        ArrayAdapter<String> adapter;
+        adapter=new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                listItems);
+        list.setAdapter(adapter);
+
         String url = "https://rest-api-csng-games.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -119,25 +128,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("heroes");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject heroe = jsonArray.getJSONObject(i);
+                            listItems.add("Personagens" + "\n\n");
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject personagens = response.getJSONObject(i);
 
-                                ListarItens listarItens = new ListarItens(
-                                        "Cabeçalho " + i,
-                                        "Testando descrição"
-                                );
+                                int id = personagens.getInt("id");
+                                String name = personagens.getString("nome");
+                                String x = personagens.getString("X");
+                                int y = personagens.getInt("Y");
 
-                                itensList.add(listarItens);
+                                listItems.add
+                                        ("Nome: " + name + "\n\n"
+                                                + "X: " + x + " \n\n "
+                                                + "Y: " + String.valueOf(y)
+                                                + " \n\n " +  "\n\n");
+                                adapter.notifyDataSetChanged();
 
-                                /*int id = heroe.getInt("id");
-                                String name = heroe.getString("name");
-                                String realname = heroe.getString("realname");
-                                int rating = heroe.getInt("rating");
-                                String teamaffiliation = heroe.getString("teamaffiliation");
-
-                                txtRec.addView(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");
-                                txtRec.append(name + " - " + realname + " - " + String.valueOf(rating) + " - " + teamaffiliation + "\n\n");*/
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
